@@ -113,11 +113,11 @@ def env(name=None):
         # the MFA token. Instead, we tell people to first call sync() and then
         # use env().
         environment_exports = """
-export AWS_ACCESS_KEY_ID="{access_key_id}"
-export AWS_ACCESS_KEY="{access_key_id}"
-export AWS_SECRET_ACCESS_KEY="{secret_access_key}"
-export AWS_SECRET_KEY="{secret_access_key}"
-export AWS_SECURITY_TOKEN="{session_token}"
+export AWS_ACCESS_KEY_ID={access_key_id}
+export AWS_ACCESS_KEY={access_key_id}
+export AWS_SECRET_ACCESS_KEY={secret_access_key}
+export AWS_SECRET_KEY={secret_access_key}
+export AWS_SESSION_TOKEN={session_token}
 """.strip().format(
             access_key_id=credentials.temporary_credentials.temporary_access_key,
             secret_access_key=credentials.temporary_credentials.temporary_secret_key,
@@ -125,10 +125,10 @@ export AWS_SECURITY_TOKEN="{session_token}"
         )
     else:
         environment_exports = """
-export AWS_ACCESS_KEY_ID="{access_key_id}"
-export AWS_ACCESS_KEY="{access_key_id}"
-export AWS_SECRET_ACCESS_KEY="{secret_access_key}"
-export AWS_SECRET_KEY="{secret_access_key}"
+export AWS_ACCESS_KEY_ID={access_key_id}
+export AWS_ACCESS_KEY={access_key_id}
+export AWS_SECRET_ACCESS_KEY={secret_access_key}
+export AWS_SECRET_KEY={secret_access_key}
 """.strip().format(
             access_key_id=credentials.access_key_id,
             secret_access_key=credentials.secret_access_key,
