@@ -36,3 +36,7 @@ for the default account.  For a specific account, run:
     $(aws-keys env <name>)
 
 If you're using MFA, then you will be prompted for an MFA token, and `aws-keys` will connect to AWS and obtain a security token.  When your security token has expired, `aws-keys` will re-prompt you for these details.
+
+You'll probably want to integrate `aws-keys` directly into your shell.  For instance, if you add the following to your .bash_profile or .bashrc, it will make the usual `aws` command work right:
+
+    alias aws='$(aws-keys env) && aws'
