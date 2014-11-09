@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='aws-keyring',
-    version='0.1',
+    version='0.1.1',
     description='Manage AWS credentials in your OS keyring.',
     author='Philip Neustrom',
     author_email='philipn@gmail.com',
