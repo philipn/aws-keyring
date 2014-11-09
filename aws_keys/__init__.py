@@ -132,6 +132,9 @@ export AWS_SECRET_KEY={secret_access_key}
     print environment_exports
 
 def sync(name=None):
+    if not name:
+        name = get_default_name()
+
     credentials = get_credentials(name)
     if not credentials.mfa_serial:
         # Nothing to do here.
