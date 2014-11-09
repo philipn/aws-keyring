@@ -19,7 +19,9 @@ setup(
     zip_safe=False,
     install_requires=[
         'keyring==4.0',
+        'boto',
         'docopt==0.6.2',
+        'python-dateutil',
     ],
     entry_points={
         'console_scripts': [

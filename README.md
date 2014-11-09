@@ -35,4 +35,4 @@ for the default account.  For a specific account, run:
     aws-keys sync <name>
     $(aws-keys env <name>)
 
-If you're using MFA, then `aws-keys` will prompt you for an MFA token and then connect to AWS and obtain a security token.  When your security token has expired, `aws-keys` will re-prompt you for these details.
+If you're using MFA, then you will be prompted for an MFA token, and `aws-keys` will connect to AWS and obtain a security token.  When your security token has expired, `aws-keys` will re-prompt you for these details.
