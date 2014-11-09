@@ -21,12 +21,11 @@ SESSION_DURATION = 60 * 60
 
 class Credentials(object):
     def __init__(self, name='', access_key_id='', secret_access_key='',
-                 mfa_serial='', is_default=False, temporary_credentials=None):
+                 mfa_serial='', temporary_credentials=None):
         self.name = name
         self.access_key_id = access_key_id
         self.secret_access_key = secret_access_key
         self.mfa_serial = mfa_serial
-        self.is_default = is_default
         self.temporary_credentials = temporary_credentials
 
 
@@ -83,7 +82,7 @@ def add():
     if enable_mfa.startswith('y'):
         keyring.set_password('aws-keyring-mfa', name, mfa_serial)
     if make_default:
-        keyring.set_password('aws-keyring-default', name, '1')
+        keyring.set_password('aws-keyring-default', 'default', name)
 
     print "Credentials added for account name '%s'." % name
 
@@ -95,10 +94,6 @@ def rm(name):
 
     if credentials.mfa_serial:
         keyring.delete_password('aws-keyring-mfa', name)
-
-    is_default = keyring.get_password('aws-keyring-default', name)
-    if is_default == '1':
-        keyring.delete_password('aws-keyring-default', name)
 
     print "Credentials for account name '%s' deleted." % name
 
@@ -173,6 +168,10 @@ def sync(name=None):
 
     keyring.set_password('aws-keyring-temporary-credentials', name, str(details))
 
+def get_default_name():
+    default = keyring.get_password('aws-keyring-default', 'default')
+    return default
+
 def get_credentials(name=None):
     if not name:
         name = get_default_name()
@@ -180,8 +179,6 @@ def get_credentials(name=None):
     access_key_id = keyring.get_password('aws-keyring-access-key-id', name)
     secret_access_key = keyring.get_password('aws-keyring-secret-access-key', name)
     mfa_serial = keyring.get_password('aws-keyring-mfa', name)
-    is_default = keyring.get_password('aws-keyring-default', name)
-    is_default = True if is_default == '1' else False
     temporary_credentials = keyring.get_password('aws-keyring-temporary-credentials', name)
     if temporary_credentials:
         access_key, secret_key, session_token, expiration = temporary_credentials.split()
@@ -197,7 +194,6 @@ def get_credentials(name=None):
         access_key_id=access_key_id,
         secret_access_key=secret_access_key,
         mfa_serial=mfa_serial,
-        is_default=is_default,
         temporary_credentials=temporary_credentials
     )
     return credentials
