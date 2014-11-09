@@ -18,7 +18,7 @@ First, add your credentials to `aws-keys`:
 
 This will prompt you for your AWS Access Key ID, AWS Secret Acces Key, and ask you some other questions.
 
-You can then get the environment settings for this account by running:
+You can then get the environment settings for the default account by running:
 
     aws-keys sync
     aws-keys env
@@ -34,6 +34,8 @@ for the default account.  For a specific account, run:
     $(aws-keys env <name>)
 
 If you're using MFA, then you will be prompted for an MFA token, and `aws-keys` will connect to AWS and obtain a security token.  When your security token has expired, `aws-keys` will re-prompt you for these details.
+
+## Making life easier
 
 You'll probably want to integrate `aws-keys` directly into your shell.  For instance, if you add the following to your .bash_profile or .bashrc, it will make the usual `aws` command work right:
 
