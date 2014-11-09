@@ -1,5 +1,3 @@
-Note: don't use this. Doesn't work yet.
-
 # aws-keyring
 
 `aws-keyring` is a simple utility to make handling your AWS credentials a little more secure and easy.  Instead of hard-coding your credentials into dotfiles, `aws-keyring` will instead store them in your system keychain / keyring.
