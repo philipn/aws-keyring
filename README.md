@@ -40,3 +40,7 @@ If you're using MFA, then you will be prompted for an MFA token, and `aws-keys` 
 You'll probably want to integrate `aws-keys` directly into your shell.  For instance, if you add the following to your .bash_profile or .bashrc, it will make the usual `aws` command work right:
 
     alias aws='$(aws-keys env) && aws'
+
+and if you're using MFA:
+
+    alias aws='aws-keys sync && $(aws-keys env) && aws'
