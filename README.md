@@ -16,7 +16,7 @@ First, add your credentials to `aws-keys`:
 
     aws-keys add
 
-This will prompt you for your AWS Access Key ID, AWS Secret Acces Key, and ask you some other questions.
+This will prompt you for your AWS Access Key ID, AWS Secret Access Key, and ask you some other questions.
 
 You can then get the environment settings for the default account by running:
 
