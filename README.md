@@ -2,7 +2,7 @@
 
 `aws-keyring` is a simple utility to make handling your AWS credentials a little more secure and easy.  Instead of hard-coding your credentials into dotfiles, `aws-keyring` will instead store them in your system keychain / keyring.
 
-`aws-keyring` also makes dealing with AWS MFA much easier when using the AWS CLI or other AWS API tools.
+`aws-keyring` also makes dealing with [AWS MFA](http://aws.amazon.com/iam/details/mfa/) much easier when using the AWS CLI or other AWS API tools.
 
 ## Installation
 
