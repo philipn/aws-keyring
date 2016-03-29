@@ -1,8 +1,15 @@
 from setuptools import setup, find_packages
+import sys
+
+
+if sys.version_info[0] != 3:
+    print("This package requires Python 3.")
+    sys.exit(1)
+
 
 setup(
     name='aws-keyring',
-    version='0.1.1',
+    version='0.2.0',
     description='Manage AWS credentials in your OS keyring.',
     author='Philip Neustrom',
     author_email='philipn@gmail.com',
@@ -14,6 +21,8 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3 :: Only',
     ],
     include_package_data=True,
     zip_safe=False,
