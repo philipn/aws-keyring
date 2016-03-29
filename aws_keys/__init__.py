@@ -9,15 +9,17 @@ Options:
   -h --help     Show this screen.
 
 """
-from docopt import docopt
 from getpass import getpass 
-import dateutil.parser
-import keyring
 import time
 import datetime
 import dateutil.parser
 
+from docopt import docopt
+import dateutil.parser
+import keyring
+
 SESSION_DURATION = 60 * 60
+
 
 class Credentials(object):
     def __init__(self, name='', access_key_id='', secret_access_key='',
@@ -64,13 +66,13 @@ def main():
         sync(arguments['NAME'])
 
 def add():
-    name = raw_input("Name for the AWS credentials (e.g. 'bob'): ").strip()
-    access_key_id = raw_input("Access Key ID: ").strip()
-    secret_access_key = raw_input("Secret Access Key: ").strip()
-    enable_mfa = raw_input("Use MFA on this account? (yes/no): ").strip().lower()
+    name = input("Name for the AWS credentials (e.g. 'bob'): ").strip()
+    access_key_id = input("Access Key ID: ").strip()
+    secret_access_key = input("Secret Access Key: ").strip()
+    enable_mfa = input("Use MFA on this account? (yes/no): ").strip().lower()
     if enable_mfa.startswith('y'):
-        mfa_serial = raw_input("Your MFA device serial (arn:aws:..) ID: ").strip()
-    make_default = raw_input("Make this account the default for aws-keys? (yes/no): ").strip().lower()
+        mfa_serial = input("Your MFA device serial (arn:aws:..) ID: ").strip()
+    make_default = input("Make this account the default for aws-keys? (yes/no): ").strip().lower()
 
     if make_default.startswith('y'):
         make_default = True
@@ -84,7 +86,7 @@ def add():
     if make_default:
         keyring.set_password('aws-keyring-default', 'default', name)
 
-    print "Credentials added for account name '%s'." % name
+    print("Credentials added for account name '{}'.".format(name))
 
 def rm(name):
     credentials = get_credentials(name)
@@ -95,7 +97,7 @@ def rm(name):
     if credentials.mfa_serial:
         keyring.delete_password('aws-keyring-mfa', name)
 
-    print "Credentials for account name '%s' deleted." % name
+    print("Credentials for account name '{}' deleted.".format(name))
 
 def env(name=None):
     credentials = get_credentials(name)
@@ -129,7 +131,7 @@ export AWS_SECRET_KEY={secret_access_key}
             secret_access_key=credentials.secret_access_key,
         )
 
-    print environment_exports
+    print(environment_exports)
 
 def sync(name=None):
     if not name:
