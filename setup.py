@@ -9,7 +9,7 @@ if sys.version_info[0] != 3:
 
 setup(
     name='aws-keyring',
-    version='0.2.0',
+    version='0.2.1',
     description='Manage AWS credentials in your OS keyring.',
     author='Philip Neustrom',
     author_email='philipn@gmail.com',

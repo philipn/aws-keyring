@@ -40,10 +40,7 @@ class TemporaryCredentials(object):
         self.expiration = expiration
 
     def time_until_expiration(self):
-        return (
-            time.mktime(dateutil.parser.parse(self.expiration).timetuple()) -
-            time.mktime(datetime.datetime.utcnow().timetuple())
-        )
+        return dateutil.parser.parse(self.expiration).timestamp() - time.time()
 
     def __str__(self):
         return "%s %s %s %s" % (
@@ -64,6 +61,7 @@ def main():
         env(arguments['NAME'])
     elif arguments['sync']:
         sync(arguments['NAME'])
+
 
 def add():
     name = input("Name for the AWS credentials (e.g. 'bob'): ").strip()
@@ -88,6 +86,7 @@ def add():
 
     print("Credentials added for account name '{}'.".format(name))
 
+
 def rm(name):
     credentials = get_credentials(name)
 
@@ -98,6 +97,7 @@ def rm(name):
         keyring.delete_password('aws-keyring-mfa', name)
 
     print("Credentials for account name '{}' deleted.".format(name))
+
 
 def env(name=None):
     credentials = get_credentials(name)
@@ -132,6 +132,7 @@ export AWS_SECRET_KEY={secret_access_key}
         )
 
     print(environment_exports)
+
 
 def sync(name=None):
     if not name:
@@ -173,9 +174,11 @@ def sync(name=None):
 
     keyring.set_password('aws-keyring-temporary-credentials', name, str(details))
 
+
 def get_default_name():
     default = keyring.get_password('aws-keyring-default', 'default')
     return default
+
 
 def get_credentials(name=None):
     if not name:
