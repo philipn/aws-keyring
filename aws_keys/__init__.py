@@ -2,7 +2,7 @@
 Usage:
   aws-keys add
   aws-keys rm <NAME>
-  aws-keys sync [NAME]
+  aws-keys sync [NAME] [--stdin]
   aws-keys env [NAME]
 
 Options:
@@ -10,6 +10,7 @@ Options:
 
 """
 from getpass import getpass 
+import sys
 import time
 import datetime
 import dateutil.parser
@@ -60,7 +61,7 @@ def main():
     elif arguments['env']:
         env(arguments['NAME'])
     elif arguments['sync']:
-        sync(arguments['NAME'])
+        sync(arguments['NAME'], from_stdin=arguments.get('--stdin'))
 
 
 def add():
@@ -134,9 +135,14 @@ export AWS_SECRET_KEY={secret_access_key}
     print(environment_exports)
 
 
-def sync(name=None):
+def sync(name=None, from_stdin=False):
+    mfa_TOTP = None
+
     if not name:
         name = get_default_name()
+
+    if from_stdin:
+        mfa_TOTP = ''.join(sys.stdin.readlines()).strip()
 
     credentials = get_credentials(name)
     if not credentials.mfa_serial:
@@ -152,7 +158,8 @@ def sync(name=None):
     import boto
     from boto.sts import STSConnection
 
-    mfa_TOTP = getpass("Enter the MFA code: ")
+    if not mfa_TOTP:
+        mfa_TOTP = getpass("Enter the MFA code: ")
 
     sts_connection = STSConnection(
         aws_access_key_id=credentials.access_key_id,
