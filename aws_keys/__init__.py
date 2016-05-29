@@ -1,6 +1,6 @@
 """
 Usage:
-  aws-keys add
+  aws-keys add <NAME>
   aws-keys rm <NAME>
   aws-keys sync [NAME] [--stdin]
   aws-keys env [NAME]
@@ -55,7 +55,7 @@ class TemporaryCredentials(object):
 def main():
     arguments = docopt(__doc__)
     if arguments['add']:
-        add()
+        add(arguments['<NAME>'])
     elif arguments['rm']:
         rm(arguments['<NAME>'])
     elif arguments['env']:
@@ -64,8 +64,9 @@ def main():
         sync(arguments['NAME'], from_stdin=arguments.get('--stdin'))
 
 
-def add():
-    name = input("Name for the AWS credentials (e.g. 'bob'): ").strip()
+def add(name=None):
+    if not name:
+        name = input("Name for the AWS credentials (e.g. 'bob'): ").strip()
     access_key_id = input("Access Key ID: ").strip()
     secret_access_key = input("Secret Access Key: ").strip()
     enable_mfa = input("Use MFA on this account? (yes/no): ").strip().lower()
