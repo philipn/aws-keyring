@@ -41,7 +41,7 @@ class TemporaryCredentials(object):
         self.expiration = expiration
 
     def time_until_expiration(self):
-        return dateutil.parser.parse(self.expiration).timestamp() - time.time()
+        return time.mktime(dateutil.parser.parse(self.expiration).timetuple()) - time.time()
 
     def __str__(self):
         return "%s %s %s %s" % (
