@@ -16,6 +16,7 @@ import datetime
 import dateutil.parser
 
 from docopt import docopt
+import pytz
 import dateutil.parser
 import keyring
 
