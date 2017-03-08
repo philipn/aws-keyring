@@ -24,6 +24,7 @@ setup(
         'boto>=2.30',
         'docopt==0.6.2',
         'python-dateutil',
+        'pytz',
     ],
     entry_points={
         'console_scripts': [

@@ -41,7 +41,7 @@ class TemporaryCredentials(object):
         self.expiration = expiration
 
     def time_until_expiration(self):
-        return time.mktime(dateutil.parser.parse(self.expiration).timetuple()) - time.time()
+        return (dateutil.parser.parse(self.expiration) - datetime.datetime.now(pytz.timezone('UTC'))).total_seconds()
 
     def __str__(self):
         return "%s %s %s %s" % (
